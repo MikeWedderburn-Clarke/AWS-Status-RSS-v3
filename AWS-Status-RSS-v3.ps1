@@ -153,6 +153,8 @@ Write-Host ""
 
 
 $arrIncidents  | Sort PubDateConverted | ft Region,Service,PubDate,TimeZone,TimeZoneOffset,PubDateConverted,StartTimeConverted,EndTimeConverted,IncidentMinutes,Description -AutoSize -Wrap
+$arrIncidents  | Sort PubDateConverted | Select Region,Service,PubDate,TimeZone,TimeZoneOffset,PubDateConverted,StartTimeConverted,EndTimeConverted,IncidentMinutes,Description | Export-Csv .\aws-status-rss.csv -NoTypeInformation
+$arrIncidents | Out-GridView
 
 # *** Testing ***
 
@@ -164,9 +166,9 @@ $arrIncidents  | Sort PubDateConverted | ft Region,Service,PubDate,TimeZone,Time
 # $arrIncidents | where {$_.description -match '\d{1,2}:\d{1,2}'} #time in description 01:01 
 
 
-"Between 11:05 AM PST and 11:44 AM PST some customers" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?).*\s(?<finish>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
-"Between 11:05 AM PST 01/01/14 and 11:44 AM PST 01/02/14 some customers" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?).*\s(?<finish>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
-"Between 11:05 AM PST 01/01/14 bla" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
+# "Between 11:05 AM PST and 11:44 AM PST some customers" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?).*\s(?<finish>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
+# "Between 11:05 AM PST 01/01/14 and 11:44 AM PST 01/02/14 some customers" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?).*\s(?<finish>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
+# "Between 11:05 AM PST 01/01/14 bla" -match '(?<start>\d{1,2}:\d{2}\s[AP]{1}[M](\s\d{1,2}\/\d{1,2}\/\d{2,4})?)' ; $matches
 
 
 # To Fix:  "Between December 13 10:39 PM and December 14 01:16 AM PST Route 53 customers"
